@@ -1,0 +1,55 @@
+\documentclass{acm_proc_article-sp}
+
+\begin{document}
+
+\title{Project: Dynamics of International Migration}
+\subtitle{Project Proposal for I523 BDAA}
+
+\numberofauthors{1} 
+\author{
+\alignauthor
+Yee Sern Tan\\
+       \affaddr{Indiana University}\\
+       gitlab username: tanyeesern\\
+       \email{yeestan@indiana.edu}
+}
+
+\date{20 April 2013}
+
+
+\maketitle
+\begin{abstract}
+Migration across national boundaries is a subject that is extensively studied in the humanities, social sciences and legal studies. This analysis project intends to bring a dynamic view of such international migration. The methods employed are limited to quantitative ones, taking on data available to the public. Qualitative or subjective measures such as culture or cohesion in migrant societies will not be analyzed in detail.
+\end{abstract}
+
+\section{Introduction}
+The datasets out there are numerous, and one main limitation of such a study is in the heterogeneous nature of data sources: different standards of measure for each data source. While each country has its own way of keeping track of movement of people across borders, the extent to which this data is made available varies greatly, not to mention a lack standard of reporting that includes secondary data such as occupation and age of immigrants.\cite{WorldBank011} In general, OECD countries are more transparent in disclosing such data.\cite{OECD} With these limitations in mind, this project only aims to uncover and present broad and significant trends and patterns that can be revealed with confidence. Adding to the limitations of study, migration within countries will not be studied because there is no customs checkpoint for collating the data, and most countries are even more wary of making the addresses of its residents public. Having discounted migration within countries, large countries will have a bias to lower migration rate as much of it is within the country.
+
+\section{Migration Factors}
+According to the United Nations Population Fund (UNFPA), "In 2015, 244 million people, or 3.3 percent of the world's population, lived outside of their country of origin." \cite{UNPopFund} A study of migration would come to being by understanding the reasons behind large numbers of migration. As shown in the UNFPA website, the main reason driving migrations are economic and social. Therefore, it is reasonable to search for correlations between economic and social indicators in comparing the data among countries.\\
+To get a view on how factors contribute to migration, the demand for immigration and emigration can be measured through regression. In this regression study, the response are the pairs of immigrating-emigrating countries, and the explanatory variables include indicators of wealth (GDP per capita), equality (GINI coefficient), and geographical coordinates of centers of population. It will be worth noting that bilateral and multilateral ties between countries get enhanced when citizens of one country are also closely affiliated with another. Not to take things too optimistically, the major reason for migration being better wages, the tension between foreign workers and employers exist. While it is a country's right and responsibility to protect its own citizens, this normally does not extend equally to foreigners. There have been cases where foreign workers are abused, and their voice is not heard. Taking this into account, residual values (from regression) that indicate extremely high values above the norm will be given special consideration, putting it in light of the respective cultures and immigration policies. 
+
+\section{Middle-Income Dynamics}
+While affluent and developed countries in general enjoy a good demand for migration, bringing in skilled labor contributing to the economy, the situation in middle-income countries are less clear-cut. Many of the middle-income countries do not yet have a well-developed infrastructure, market, education and competitive landscape conducive to growth. As such the dynamics of how certain middle-income countries serve as a spot where immigration from lower-income countries and emigration to higher-income countries occur simultaneously will be interesting for study.\cite{UN2015,DRC007} Will the loss of talented labor and the introduction of low-wage labor stagnate growth? Or will it be otherwise, that the market can adjust itself sufficiently? The study of migration statistics could reveal the countries facing this situation.
+
+\section{Age-Group Studies}
+Data permitting, another branch for study is time-dependent age-based study, following each age cohort.\cite{UNDownload000} If the statistic on a particular age-group is striking, it could suggest that measures on whether a family or extended family migrate together could be low, and the implications can be mentioned. 
+
+\section{Recent Crisis in Middle East}
+The migration wave that happened in response to the recent Arab spring movement (the largest since the second World War), and its contribution to the current migration data, will be discussed. This huge influx of immigrants to Europe is also raising concerns, particularly to conservative values. The mix of religious, cultural and racial blend of migrants could cause a stir. While countries like Syria are still in a state of civil war, a solution through this chaos is something many yearn for.\cite{MPI,Eurostat}
+
+\section{Cluster Identification}
+The foreign policies of nations help to address issues arising from citizens traveling or living abroad. Close relations and strong economic ties permit lesser border control. An example is the Schengen Area, comprising of 26 countries, for which traveling across country borders do not require a visa or passport. Such examples contribute to the mutual understanding of residents, and ultimately encourage migration. The groups of countries sharing high-migration rate can be modeled as clusters. For this purpose, each country can be mathematically a vector, where each coordinate represents the migration rate to a specific country. The rate can be a function of both inward and outward migration, and can be normalized by a constant so that the total migration activity of citizens of each sovereign state is leveled. For various rate functions, clustering of nations can be calculated. The clusters can be visualized with different colors or with connection in graphs representing various clusters.
+
+\section{Technology}
+Much remains to be explored as to which technologies work best for the analyses proposed above. Python will be the main language for extracting, transforming and processing data. For regression and clustering, scikit-learn is identified as the default package. The initial stages of this project will work to a set of sufficient tools for the requirements stated above.
+
+\section{Artifacts}
+The data obtained, if publicly inaccessible and having reasonable size, will be stored in gitlab, otherwise internet links will be provided. The code for processing data will be deposited in gitlab. The summary of results will be included in the final report. The coefficients and residuals of regression will be reported in tables, sorted according to variables of interest. The output for clustering will be visualized for better intuition. The resultant tables and figures will be stored in gitlab.
+
+\bibliographystyle{abbrv}
+\bibliography{sample}
+
+%\balancecolumns 
+
+\end{document}
