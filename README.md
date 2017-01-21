@@ -10,7 +10,7 @@ Folder migration contains my project for *Big Data Applications and Analytics*. 
 
 Folder network_science contains the deliverables of the final project, for replicating the results of the paper:
 
-    *An Edge-Centric Perspective on the Human Connectome: Link Communities in the Brain,* 
-         *by M. A. de Reus, V. M. Saenger, R. S. Kahn and M. P. van den Heuvel*. 
+    An Edge-Centric Perspective on the Human Connectome: Link Communities in the Brain,
+         by M. A. de Reus, V. M. Saenger, R. S. Kahn and M. P. van den Heuvel. 
 
 The folder includes a report and the code for generation of the analysis in IPython Notebook format.
