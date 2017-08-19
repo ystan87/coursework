@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Product Catalog</title>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" />
+<link rel="stylesheet"
+	href="https://jqueryui.com/resources/demos/style.css" />
+<script src="https://code.jquery.com/jquery-1.12.4.js">
+	
+</script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js">
+	
+</script>
+<link id="themecss" rel="stylesheet" type="text/css"
+	href="//www.shieldui.com/shared/components/latest/css/light/all.min.css" />
+<script type="text/javascript"
+	src="//www.shieldui.com/shared/components/latest/js/shieldui-all.min.js">
+	
+</script>
+<script type="text/javascript" src="chosen1.7.0/chosen.jquery.js">
+	
+</script>
+<link rel="stylesheet" href="chosen1.7.0/chosen.css" />
+<style>
+.Row {
+	display: table;
+	width: 100%; /*Optional*/
+	table-layout: fixed; /*Optional*/
+	border-spacing: 10px; /*Optional*/
+}
+
+.Column {
+	display: table-cell;
+	/*background-color: red;*/ /*Optional*/
+}
+
+#accordion-resizer {
+	padding: 10px;
+	height: 270px;
+}
+
+#accordion-resizer-plp-rel {
+	padding: 10px;
+	height: 270px;
+}
+
+#accordion .ui-accordion-header:first-of-type {
+  background-color: #fa9300;
+}
+* { 
+  -moz-box-sizing: border-box; 
+  -webkit-box-sizing: border-box; 
+  box-sizing: border-box;
+}
+#accordion .ui-accordion-content {
+  width: 100%;
+  background-color: #f3f3f3;
+  color: #777;
+  font-size: 10pt;
+  line-height: 16pt;
+}
+#accordion .ui-accordion-header {
+  background-color: #ccc;
+  margin: 0px;
+}
+#accordion .ui-accordion-header:first-of-type {
+  background-color: #fa9300;
+}
+#accordion .ui-accordion-header:nth-of-type(2) {
+  background-color: #389abe;
+}
+#accordion .ui-accordion-header:nth-of-type(3) {
+  background-color: #f87aa0; /* Old browsers */
+}
+#accordion .ui-accordion-header:nth-of-type(4) {
+  background-color: #a8b700;
+}
+#accordion .ui-accordion-header:last-of-type {
+  background-color: #b3bec4;
+}
+#accordion .ui-accordion-content {
+  box-shadow: inset 0px -1px 0px 0px rgba(0, 0, 0, .4),
+        inset 0px 1px 1px 0px rgba(0, 0, 0, .2);
+}
+#accordion .ui-accordion-content:last-of-type {
+  box-shadow: inset 0px 1px 1px 0px rgba(0, 0, 0, .2),
+        inset 0px 0 0px 0px rgba(0, 0, 0, .5);
+}
+</style>
+</head>
+<body>
+	<div id="accordion">
+		<h3>Stores</h3>
+		<div>
+			<div id="grid"></div>
+		</div>
+		<h3>Product Lines</h3>
+		<div>
+			<div id="gridPL"></div>
+		</div>
+		<h3>Products</h3>
+		<div>
+			<div id="gridProduct"></div>
+		</div>
+		<h3>Store and Product Lines Relationship</h3>
+		<div id="accordion-resizer" class="ui-widget-content">
+			<div id="storeProdRel" class="Row">
+				<div id="sprel-storeid" class="Column">
+					<p>
+						<em>Select a Store:</em>
+					</p>
+					<select id="store_select_info" data-placeholder="Choose a Store..."
+						class="store_select" tabindex="1"></select>
+				</div>
+				<div id="sprel-productlineid" class="Column">
+					<div id="productLineDivId">
+						<p>
+							<em>Choose Product Lines(s):</em>
+						</p>
+						<select id="pl_select_info"
+							data-placeholder="Choose Product Line(s)..." multiple
+							class="pl-select">
+						</select>
+					</div>
+				</div>
+				<div id="sprel-submitbtnid" class="Column">
+					<div id="sprelBtnDivId">
+						<p>
+							<em>Choose an action:</em>
+						</p>
+						<button id="sprel-save-btn" class="sui-button">Save</button>
+						<button id="sprel-cancel-btn" class="sui-button">Cancel</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<h3>Product Lines and Product Relationship</h3>
+		<div id="accordion-resizer-plp-rel" class="ui-widget-content">
+			<div id="plprel_plpProdRel" class="Row">
+				<div id="plprel_plid" class="Column">
+					<p>
+						<em>Select a Product Line:</em>
+					</p>
+					<select id="plprel_pl_select_info"
+						data-placeholder="Choose a Product Line..."
+						class="plprel_pl_select" tabindex="1"></select>
+				</div>
+				<div id="plprel-prod_lid" class="Column">
+					<div id="plpre_productDivId">
+						<p>
+							<em>Choose Product(s):</em>
+						</p>
+						<select id="plprel_prod_select_info"
+							data-placeholder="Choose Product(s)..." multiple
+							class="plprel_prod_select">
+						</select>
+					</div>
+				</div>
+				<div id="plprel_submitbtnid" class="Column">
+					<div id="plprelBtnDivId">
+						<p>
+							<em>Choose an action:</em>
+						</p>
+						<button id="plprel_save_btn" class="sui-button">Save</button>
+						<button id="plprel_cancel_btn" class="sui-button">Cancel</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		var products;
+		function refreshProductsList() {
+			var url = "rest/product";
+			$.getJSON(url, function(json) {
+				products = json;
+				$("#plprel_prod_select_info").empty();
+				$("#plprel_prod_select_info").append(
+						'<option value=""></option>');
+				$.each(products, function(idx, obj) {
+					$("#plprel_prod_select_info").append(
+							'<option value="' + obj.Id + '">' + obj.Name + '-'
+									+ obj.Price + '</option>');
+				});
+				$("#plprel_prod_select_info").trigger("chosen:updated");
+				$("#plprel_prod_select_info").chosen({
+					width : "100%"
+				});
+			})
+		}
+		refreshProductsList();
+	</script>
+	<script>
+		function refreshPLPProductLineList() {
+			var url = "rest/productline";
+			var data;
+			$.getJSON(url, function(json) {
+				data = json;
+				var currentlySelectedId = $('.plprel_pl_select')["0"].value;
+				$("#plprel_pl_select_info").empty();
+				$("#plprel_pl_select_info")
+						.append('<option value=""></option>');
+				$.each(data, function(idx, obj) {
+					if (currentlySelectedId == obj.Id) {
+						$("#plprel_pl_select_info").append(
+								'<option value="' + obj.Id + '" selected>'
+										+ obj.Name + '</option>');
+					} else {
+						$("#plprel_pl_select_info").append(
+								'<option value="' + obj.Id + '">' + obj.Name
+										+ '</option>');
+					}
+				});
+				$("#accordion-resizer-plp-rel").resizable({
+					minHeight : 200,
+					minWidth : 200,
+					resize : function() {
+						$("#accordion").accordion("refresh");
+					}
+				});
+				$("#plprel_pl_select_info").trigger("chosen:updated");
+				$("#plprel_pl_select_info").chosen({
+					width : "100%"
+				});
+			})
+		}
+		refreshPLPProductLineList();
+	</script>
+
+	<script>
+		var productLine;
+		function refreshProductLineList() {
+			var url = "rest/productline";
+			$.getJSON(url, function(json) {
+				productLine = json;
+				$("#pl_select_info").empty();
+				$("#pl_select_info").append('<option value=""></option>');
+				$.each(productLine, function(idx, obj) {
+					$("#pl_select_info").append(
+							'<option value="' + obj.Id + '">' + obj.Name
+									+ '</option>');
+				});
+				$("#pl_select_info").trigger("chosen:updated");
+				$("#pl_select_info").chosen({
+					width : "100%"
+				});
+			})
+		}
+		refreshProductLineList();
+	</script>
+	<script>
+		function refreshStoreList() {
+			var url = "rest/store";
+			var data;
+			$.getJSON(url, function(json) {
+				data = json;
+				var currentlySelectedId = $('.store_select')["0"].value;
+				$("#store_select_info").empty();
+				$("#store_select_info").append('<option value=""></option>');
+				$.each(data, function(idx, obj) {
+					if (obj.Id == currentlySelectedId) {
+						$("#store_select_info").append(
+								'<option value="' + obj.Id + ' " selected>'
+										+ obj.Name + ' ' + obj.Address
+										+ '</option>');
+					} else {
+						$("#store_select_info").append(
+								'<option value="' + obj.Id + '">' + obj.Name
+										+ ' ' + obj.Address + '</option>');
+					}
+				});
+				$("#accordion-resizer").resizable({
+					minHeight : 200,
+					minWidth : 200,
+					resize : function() {
+						$("#accordion").accordion("refresh");
+					}
+				});
+				$("#store_select_info").trigger("chosen:updated");
+				$("#store_select_info").chosen({
+					width : "100%"
+				});
+			})
+		}
+		refreshStoreList();
+	</script>
+	<script>
+		$("#accordion").accordion();
+	</script>
+	<script type="text/javascript">
+		$(function() {
+			$("#grid")
+					.shieldGrid(
+							{
+								dataSource : {
+									events : {
+										error : function(event) {
+											if (event.errorType == "transport") {
+												// transport error is an ajax error; event holds the xhr object
+												alert("transport error: "
+														+ event.error.statusText);
+												// reload the data source if the operation that failed was save
+												if (event.operation == "save") {
+													this.read();
+												}
+											} else {
+												// other data source error - validation, etc
+												alert(event.errorType
+														+ " error: "
+														+ event.error);
+											}
+										}
+									},
+									remote : {
+										read : {
+											type : "GET",
+											url : "rest/store/",
+											dataType : "json"
+										},
+										modify : {
+											create : function(items, success,
+													error) {
+												var newItem = items[0];
+												$
+														.ajax({
+															type : "POST",
+															url : "rest/store/post",
+															dataType : "json",
+															data : newItem.data,
+															complete : function(
+																	xhr) {
+																if (xhr.readyState == 4) {
+																	if (xhr.status == 201) {
+																		// update the id of the newly-created item with the 
+																		// one returned in the json payload with the Id
+																		var location = xhr.responseJSON.Id;
+																		newItem.data.Id = xhr.responseJSON.Id;
+																		success();
+																		refreshStoreList(); //refresh the store list
+																		return;
+																	}
+																}
+																error(xhr);
+															}
+														});
+											},
+											update : function(items, success,
+													error) {
+												$
+														.ajax(
+																{
+																	type : "PUT",
+																	url : "rest/store/put",
+																	dataType : "json",
+																	contentType : "application/json",
+																	data : JSON
+																			.stringify(items[0].data),
+																	complete : function(
+																			xhr) {
+																		if (xhr.readyState == 4) {
+																			if (xhr.status == 201) {
+																				success();
+																				refreshStoreList(); //refresh the store list
+																				return;
+																			}
+																		}
+																		error(xhr);
+																	}
+																}).then(
+																success, error);
+											},
+											remove : function(items, success,
+													error) {
+												$
+														.ajax(
+																{
+																	type : "DELETE",
+																	url : "rest/store/delete",
+																	dataType : "json",
+																	contentType : "application/json",
+																	data : JSON
+																			.stringify(items[0].data),
+																	complete : function(
+																			xhr) {
+																		if (xhr.readyState == 4) {
+																			if (xhr.status == 201) {
+																				success();
+																				refreshStoreList(); //refresh the store list
+																				return;
+																			}
+																		}
+																		error(xhr);
+																	}
+																}).then(
+																success, error);
+											}
+										}
+									},
+									schema : {
+										fields : {
+											Id : {
+												path : "Id",
+												type : String
+											},
+											Name : {
+												path : "Name",
+												type : String
+											},
+											Address : {
+												path : "Address",
+												type : String
+											}
+										}
+									}
+								},
+								sorting : true,
+								rowHover : false,
+								columns : [ {
+									field : "Id",
+									visible : false
+								}, {
+									field : "Name",
+									title : "Name",
+									width : 120
+								}, {
+									field : "Address",
+									title : "Address",
+									width : 200
+								}, {
+									width : 140,
+									title : " ",
+									buttons : [ {
+										commandName : "edit",
+										caption : "Edit"
+									}, {
+										commandName : "delete",
+										caption : "Delete"
+									} ]
+								} ],
+								toolbar : [ {
+									buttons : [ {
+										commandName : "insert",
+										caption : "Add a Store"
+									} ],
+									position : "top"
+								}, {
+									buttons : [ {
+										caption : "Reset Store List",
+										click : function(e) {
+											var grid = this;
+											$.ajax({
+												type : "GET",
+												url : "rest/store/"
+											}).done(function() {
+												grid.dataSource.read();
+											});
+										}
+									} ],
+									position : "bottom"
+								} ],
+								paging : {
+									pageSize : 3
+								},
+								editing : {
+									enabled : true,
+									type : "row"
+								}
+							});
+		});
+	</script>
+	<script type="text/javascript">
+		$(function() {
+			$("#gridPL")
+					.shieldGrid(
+							{
+								dataSource : {
+									events : {
+										error : function(event) {
+											if (event.errorType == "transport") {
+												errorMsg = "";
+												//if there is a response back
+												if (event.error.responseText) {
+													errorMsg = errorMsg
+															+ event.error.responseText;
+												}
+												// transport error is an ajax error; event holds the xhr object
+												errorMsg = errorMsg
+														+ "; transport error: "
+														+ event.error.statusText
+												alert(errorMsg);
+												// reload the data source if the operation that failed was save
+												if (event.operation == "save") {
+													this.read();
+												}
+											} else {
+												// other data source error - validation, etc
+												alert(event.errorType
+														+ " error: "
+														+ event.error);
+											}
+										}
+									},
+									remote : {
+										read : {
+											type : "GET",
+											url : "rest/productline/",
+											dataType : "json"
+										},
+										modify : {
+											create : function(items, success,
+													error) {
+												var newItem = items[0];
+												$
+														.ajax({
+															type : "POST",
+															url : "rest/productline/post",
+															dataType : "json",
+															data : newItem.data,
+															complete : function(
+																	xhr) {
+																if (xhr.readyState == 4) {
+																	if (xhr.status == 201) {
+																		// update the id of the newly-created item with the 
+																		// one returned in the json payload with the Id
+																		var location = xhr.responseJSON.Id;
+																		newItem.data.Id = xhr.responseJSON.Id;
+																		success();
+																		refreshProductLineList();
+																		refreshStoreplrelPL($('.store_select')["0"].value);
+																		refreshPLPProductLineList();
+																		return;
+																	}
+																}
+																error(xhr);
+															}
+														});
+											},
+											update : function(items, success,
+													error) {
+												$
+														.ajax(
+																{
+																	type : "PUT",
+																	url : "rest/productline/put",
+																	dataType : "json",
+																	contentType : "application/json",
+																	data : JSON
+																			.stringify(items[0].data),
+																	complete : function(
+																			xhr) {
+																		if (xhr.readyState == 4) {
+																			if (xhr.status == 201) {
+																				success();
+																				refreshProductLineList(); //refresh the product line list
+																				refreshStoreplrelPL($('.store_select')["0"].value);
+																				refreshPLPProductLineList();
+																				return;
+																			}
+																		}
+																		error(xhr);
+																	}
+																}).then(
+																success, error);
+											},
+											remove : function(items, success,
+													error) {
+												$
+														.ajax(
+																{
+																	type : "DELETE",
+																	url : "rest/productline/delete",
+																	dataType : "json",
+																	contentType : "application/json",
+																	data : JSON
+																			.stringify(items[0].data),
+																	complete : function(
+																			xhr) {
+																		if (xhr.readyState == 4) {
+																			if (xhr.status == 201) {
+																				success();
+																				refreshProductLineList(); //refresh the product line list
+																				refreshStoreplrelPL($('.store_select_info')["0"].value);
+																				refreshPLPProductLineList();
+																				return;
+																			}
+																		}
+																		error(xhr);
+																	}
+																}).then(
+																success, error);
+											}
+										}
+									},
+									schema : {
+										fields : {
+											Id : {
+												path : "Id",
+												type : String
+											},
+											Name : {
+												path : "Name",
+												type : String
+											}
+										}
+									}
+								},
+								sorting : true,
+								rowHover : false,
+								columns : [ {
+									field : "Id",
+									visible : false
+								}, {
+									field : "Name",
+									title : "Name",
+									width : 120
+								}, {
+									width : 140,
+									title : " ",
+									buttons : [ {
+										commandName : "edit",
+										caption : "Edit"
+									}, {
+										commandName : "delete",
+										caption : "Delete"
+									} ]
+								} ],
+								toolbar : [ {
+									buttons : [ {
+										commandName : "insert",
+										caption : "Add a Product Line"
+									} ],
+									position : "top"
+								}, {
+									buttons : [ {
+										caption : "Reset Product Line List",
+										click : function(e) {
+											var grid = this;
+											$.ajax({
+												type : "GET",
+												url : "rest/productline/"
+											}).done(function() {
+												grid.dataSource.read();
+											});
+										}
+									} ],
+									position : "bottom"
+								} ],
+								paging : {
+									pageSize : 3
+								},
+								editing : {
+									enabled : true,
+									type : "row"
+								}
+							});
+		});
+	</script>
+	<script type="text/javascript">
+		$(function() {
+			$("#gridProduct")
+					.shieldGrid(
+							{
+								dataSource : {
+									events : {
+										error : function(event) {
+											if (event.errorType == "transport") {
+												errorMsg = "";
+												//if there is a response back
+												if (event.error.responseText) {
+													errorMsg = errorMsg
+															+ event.error.responseText;
+												}
+												// transport error is an ajax error; event holds the xhr object
+												errorMsg = errorMsg
+														+ "; transport error: "
+														+ event.error.statusText
+												alert(errorMsg);
+												// reload the data source if the operation that failed was save
+												if (event.operation == "save") {
+													this.read();
+												}
+											} else {
+												// other data source error - validation, etc
+												alert(event.errorType
+														+ " error: "
+														+ event.error);
+											}
+										}
+									},
+									remote : {
+										read : {
+											type : "GET",
+											url : "rest/product/",
+											dataType : "json"
+										},
+										modify : {
+											create : function(items, success,
+													error) {
+												var newItem = items[0];
+												$
+														.ajax({
+															type : "POST",
+															url : "rest/product/post",
+															dataType : "json",
+															data : newItem.data,
+															complete : function(
+																	xhr) {
+																if (xhr.readyState == 4) {
+																	if (xhr.status == 201) {
+																		// update the id of the newly-created item with the 
+																		// one returned in the json payload with the Id
+																		var location = xhr.responseJSON.Id;
+																		newItem.data.Id = xhr.responseJSON.Id;
+																		success();
+																		refreshProductsList();
+																		refreshPLProdrelProducts($('.plprel_pl_select')["0"].value);
+																		return;
+																	}
+																}
+																error(xhr);
+															}
+														});
+											},
+											update : function(items, success,
+													error) {
+												$
+														.ajax(
+																{
+																	type : "PUT",
+																	url : "rest/product/put",
+																	dataType : "json",
+																	contentType : "application/json",
+																	data : JSON
+																			.stringify(items[0].data),
+																	complete : function(
+																			xhr) {
+																		if (xhr.readyState == 4) {
+																			if (xhr.status == 201) {
+																				success();
+																				refreshProductsList();
+																				refreshPLProdrelProducts($('.plprel_pl_select')["0"].value);
+																				return;
+																			}
+																		}
+																		error(xhr);
+																	}
+																}).then(
+																success, error);
+											},
+											remove : function(items, success,
+													error) {
+												$
+														.ajax(
+																{
+																	type : "DELETE",
+																	url : "rest/product/delete",
+																	dataType : "json",
+																	contentType : "application/json",
+																	data : JSON
+																			.stringify(items[0].data),
+																	complete : function(
+																			xhr) {
+																		if (xhr.readyState == 4) {
+																			if (xhr.status == 201) {
+																				success();
+																				refreshProductsList();
+																				refreshPLProdrelProducts($('.plprel_pl_select')["0"].value);
+																				return;
+																			}
+																		}
+																		error(xhr);
+																	}
+																}).then(
+																success, error);
+											}
+										}
+									},
+									schema : {
+										fields : {
+											Id : {
+												path : "Id",
+												type : String
+											},
+											Name : {
+												path : "Name",
+												type : String
+											},
+											Price : {
+												path : "Price",
+												type : String
+											}
+										}
+									}
+								},
+								sorting : true,
+								rowHover : false,
+								columns : [ {
+									field : "Id",
+									visible : false
+								}, {
+									field : "Name",
+									title : "Name",
+									width : 120
+								}, {
+									field : "Price",
+									title : "Price",
+									width : 50
+								}, {
+									width : 140,
+									title : " ",
+									buttons : [ {
+										commandName : "edit",
+										caption : "Edit"
+									}, {
+										commandName : "delete",
+										caption : "Delete"
+									} ]
+								} ],
+								toolbar : [ {
+									buttons : [ {
+										commandName : "insert",
+										caption : "Add a Product"
+									} ],
+									position : "top"
+								}, {
+									buttons : [ {
+										caption : "Reset Product List",
+										click : function(e) {
+											var grid = this;
+											$.ajax({
+												type : "GET",
+												url : "rest/store/"
+											}).done(function() {
+												grid.dataSource.read();
+											});
+										}
+									} ],
+									position : "bottom"
+								} ],
+								paging : {
+									pageSize : 3
+								},
+								editing : {
+									enabled : true,
+									type : "row"
+								}
+							});
+		});
+	</script>
+	<script>
+		$(".selector").accordion({
+			heightStyle : "content"
+		});
+		(function($, undefined) {
+			$.widget("ab.accordion", $.ui.accordion, {
+				refresh : function() {
+					this._super("refresh");
+					if (this.options.heightStyle !== "content") {
+						return;
+					}
+					this.headers.next().each(function() {
+						if ($(this).css("height")) {
+							$(this).css("height", "");
+						}
+					});
+				}
+			});
+		})(jQuery);
+		$(function() {
+			$("#accordion").accordion();
+			for (var i = 0; i < 20; i++) {
+				$("ul").append("<li>nth item</li>");
+			}
+			$("#accordion").accordion("option", "heightStyle", "content")
+					.accordion("refresh");
+		});
+		//$( ".selector" ).accordion( "option", "autoHeight", false );
+		/*		
+		$(document).ready(function () {
+		    $("#accordion").accordion({
+		        heightStyle: "fill"
+		    });
+		})		
+		 */
+		$("#accordion").accordion({
+			heightStyle : "fill"
+		});
+		$("#productLineDivId").hide();
+		$("#sprelBtnDivId").hide();
+		$("#plpre_productDivId").hide();
+		$("#plprelBtnDivId").hide();
+	</script>
+</body>
+</html>
