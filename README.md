@@ -14,3 +14,7 @@ Folder "network_science" contains the deliverables of the final project, for rep
          by M. A. de Reus, V. M. Saenger, R. S. Kahn and M. P. van den Heuvel. 
 
 The folder includes a report and the code for generation of the analysis in IPython Notebook format.
+
+Folder "SQL" contains a web application developed to demonstrate use of SQL. Under it, the subfolder "MySQLWorkbench" it contains DDL and databse dump; the subfolder "apache-tomcat-8.5.16" contains instruction for deploying on server (for details see report subfolder); the subfolder "pc" contains codes in Java and JS; and the subfolder "report" contains the final report.
+
+The folder "Resume" has my resume for public.
