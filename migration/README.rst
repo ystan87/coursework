@@ -60,10 +60,6 @@ python open_community.py
 
 **Report**
 
-The report can be obtained at
-
-- project-060/report/report.pdf
-
 The following files are used to generate the report
 
 - project-060/report/report.tex 
