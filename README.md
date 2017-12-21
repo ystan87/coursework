@@ -17,4 +17,6 @@ The folder includes a report and the code for generation of the analysis in IPyt
 
 Folder "SQL" contains a web application developed to demonstrate use of SQL. Under it, the subfolder "MySQLWorkbench" it contains DDL and databse dump; the subfolder "apache-tomcat-8.5.16" contains instruction for deploying on server (for details see report subfolder); the subfolder "pc" contains codes in Java and JS; and the subfolder "report" contains the final report.
 
+Folder "Cystic_Fibrosis_clinical" analyzes clinical hospital data.
+
 The folder "Resume" has my resume for public.
