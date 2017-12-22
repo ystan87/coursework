@@ -19,4 +19,6 @@ Folder "SQL" contains a web application developed to demonstrate use of SQL. Und
 
 Folder "Cystic_Fibrosis_clinical" analyzes clinical hospital data.
 
+Folder "Kaggle_house_price_pred" contains a homework from data mining course to train a linear regression model for prediction of house prices.
+
 The folder "Resume" has my resume for public.
